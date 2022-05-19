@@ -1,0 +1,53 @@
+<!DOCTYPE html><html><head><title>HTML5 Canvas</title>  
+
+<h1>Composition</h1>
+<iframe srcdoc="
+    <style>
+        canvas {border: 1px solid brown;background-color:lightgrey;}
+        select {vertical-align:top}
+    </style>  
+    <script>
+        var canvas;
+        var ctx;
+        var value = 'source-over';
+        var operations = ['source-over', 'source-in', 'source-out', 'source-atop', 'destination-over', 'destination-in', 'destination-out', 'destination-atop', 'lighter', 'copy', 'xor'];
+        function init() {
+            canvas = document.getElementById('myCanvas');
+            ctx = canvas.getContext('2d');
+            draw();    
+        }
+    
+        function getOperation(sel) {
+            value = operations[sel.value];
+            draw();
+        }
+    
+        function draw() {
+          ctx.save();
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          ctx.fillStyle = 'blue';
+          ctx.fillRect(20, 20, 40, 40);
+          
+          ctx.globalCompositeOperation = value; 
+          
+          ctx.fillStyle = 'green';
+          ctx.fillRect(25, 25, 40, 40);
+          ctx.restore();
+        }    
+    </script>
+    <body onload='init();'>
+        <canvas id=myCanvas width=150 height=100></canvas>
+        <select id=opers onchange='getOperation(this)''>
+          <option value=0 selected=selected>source-over</option>
+          <option value=1>source-in</option>
+          <option value=2>source-out</option>
+          <option value=3>source-atop</option>
+          <option value=4>destination-over</option>
+          <option value=5>destination-in</option>
+          <option value=6>destination-out</option>
+          <option value=7>destination-atop</option>
+          <option value=8>lighter</option>
+          <option value=9>copy</option>
+          <option value=10>xor</option>
+        </select>   
+" height=150 width="100%"></iframe>
